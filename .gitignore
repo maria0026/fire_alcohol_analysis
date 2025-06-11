@@ -2,3 +2,7 @@
 build
 .gitattributes
 .egg-info
+data/.~lock.3.csv\#
+*.csv#
+*.xlsx#
+*.pyc
