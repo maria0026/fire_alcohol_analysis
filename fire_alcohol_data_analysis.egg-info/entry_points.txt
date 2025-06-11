@@ -1,0 +1,2 @@
+[console_scripts]
+main = data_analysis.main:main

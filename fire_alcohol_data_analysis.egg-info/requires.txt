@@ -1,0 +1,6 @@
+pandas>=2.3.0
+numpy>=2.2.0
+openpyxl>=3.1.0
+scipy>=1.11.3
+matplotlib>=2.0.1
+jupyterlab>=4.0.0
