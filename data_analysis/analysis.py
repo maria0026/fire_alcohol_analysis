@@ -48,7 +48,7 @@ def fire_population(df_fire: pd.DataFrame, df_population: pd.DataFrame, plot=Fal
 
     df_fire_voivodeships_grouped = df_fire.groupby('Województwo').sum()
     fire_voivodeships_values = df_fire_voivodeships_grouped['OGÓŁEM Liczba zdarzeń']
-    r, _ = scipy.stats.pearsonr(fire_voivodeships_values, population)
+    r_pop, _ = scipy.stats.pearsonr(fire_voivodeships_values, population)
     r_den, _ = scipy.stats.pearsonr(fire_voivodeships_values, density)
 
     if plot:
@@ -57,7 +57,12 @@ def fire_population(df_fire: pd.DataFrame, df_population: pd.DataFrame, plot=Fal
         plt.ylabel("Number of population [thousand]")
         plt.show()
 
-    return r, r_den
+        plt.scatter(fire_voivodeships_values, population)
+        plt.xlabel("Number of fire events in voivodeships")
+        plt.ylabel("Population density (nr of people/1 km^2)")
+        plt.show()
+
+    return r_pop, r_den
 
 
 

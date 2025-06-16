@@ -25,9 +25,7 @@ def main(cli_args=None):
 
     r_pop, r_den = analysis.fire_population(fire_dataset, population_dataset, plot=True)
     print(f"Wartość korelacji między liczbą pożarów a liczbą ludności w województwach wynosi {round(r_pop, 2)}")
-    print(f"Wartość korelacji między liczbą pożarów a liczbą ludności w województwach wynosi {round(r_den, 2)}")
-
-    #moje właśne - większa gęstość ludności sprzyja więszej ilości pozarow Nazwa jednostki POLSKA, nazwa wojewodztwa i wypisane - wielkosci
+    print(f"Wartość korelacji między liczbą pożarów a gęstością ludności w województwach wynosi {round(r_den, 2)}")
 
 
 if __name__ == "__main__":
