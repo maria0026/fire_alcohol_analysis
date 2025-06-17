@@ -48,6 +48,7 @@ def fire_population(df_fire: pd.DataFrame, df_population: pd.DataFrame, plot=Fal
 
     df_fire_voivodeships_grouped = df_fire.groupby('Województwo').sum()
     fire_voivodeships_values = df_fire_voivodeships_grouped['OGÓŁEM Liczba zdarzeń']
+
     r_pop, _ = scipy.stats.pearsonr(fire_voivodeships_values, population)
     r_den, _ = scipy.stats.pearsonr(fire_voivodeships_values, density)
 
@@ -65,5 +66,35 @@ def fire_population(df_fire: pd.DataFrame, df_population: pd.DataFrame, plot=Fal
     return r_pop, r_den
 
 
+def alcohol_population(df_alcohol: pd.DataFrame, df_population: pd.DataFrame, plot = False):
+
+    df_alcohol['Województwo'] = df_alcohol['Województwo'].str.replace('WOJ. ', '').str.lower()
+    voivodeship_names = df_alcohol['Województwo']
+
+    df_population['Nazwa']= df_population['Nazwa'].str.lower()
+
+    df_population_filtered = df_population[df_population['Nazwa'].isin(voivodeship_names)] #chose only voivodeship rows
+
+    population=df_population_filtered['ludność w tysiącach,2024,[tys. osób]']
+    density = df_population_filtered['ludność na 1 km2,2024,[osoba]']
+
+    df_alcohol_voivodeships_grouped = df_alcohol.groupby('Województwo').count()
+    alcohol_voivodeships_values = df_alcohol_voivodeships_grouped['Numer zezwolenia']
+
+    r_pop, _ = scipy.stats.pearsonr(alcohol_voivodeships_values, population)
+    r_den, _ = scipy.stats.pearsonr(alcohol_voivodeships_values, density)
+
+    if plot:
+        plt.scatter(alcohol_voivodeships_values, population)
+        plt.xlabel("Number of alcohol concessions in voivodeships")
+        plt.ylabel("Number of population [thousand]")
+        plt.show()
+
+        plt.scatter(alcohol_voivodeships_values, population)
+        plt.xlabel("Number of alcohol concession in voivodeships")
+        plt.ylabel("Population density (nr of people/1 km^2)")
+        plt.show()
+
+    return r_pop, r_den
 
 

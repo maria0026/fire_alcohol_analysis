@@ -20,12 +20,20 @@ def main(cli_args=None):
     population_dataset = analysis.load_data(args.population_dataset)
     print(population_dataset)
 
+    #liczba pozarow a liczba koncesji
     r_value = analysis.fire_alcohol(fire_dataset, alcohol_dataset, plot=True)
     print(f"Wartość korelacji między liczbą pożarów a liczbą firm z koncecją alkoholu w województwach wynosi {round(r_value, 2)}")
 
+    #liczba ludnosci a liczba pozarow
     r_pop, r_den = analysis.fire_population(fire_dataset, population_dataset, plot=True)
     print(f"Wartość korelacji między liczbą pożarów a liczbą ludności w województwach wynosi {round(r_pop, 2)}")
     print(f"Wartość korelacji między liczbą pożarów a gęstością ludności w województwach wynosi {round(r_den, 2)}")
+
+    #liczba ludnosci a liczba koncesji
+    r_pop, r_den = analysis.alcohol_population(alcohol_dataset, population_dataset, plot=True)
+    print(f"Wartość korelacji między liczbą koncesji a liczbą ludności w województwach wynosi {round(r_pop, 2)}")
+    print(f"Wartość korelacji między liczbą koncesji a gęstością ludności w województwach wynosi {round(r_den, 2)}")
+
 
 
 if __name__ == "__main__":
