@@ -50,6 +50,19 @@ def get_population_data(df_population: pd.DataFrame, voivodeship_names):
 
     return population, density
 
+def get_pedestrian_data(df: pd.DataFrame, voivodeship_names):
+    df.columns = df.columns.str.strip().str.rstrip(';')
+    df[['Województwo', 'Wartość']] = df[
+    'Wskaźnik: "Liczba wypadków drogowych z udziałem pieszych i rowerzystów na 100 tys. ludności"'
+    ].str.split(';', expand=True)
+    df['Województwo'] = (df['Województwo'].str.lower()).str.strip()
+    df_pedestrian_filtered = df[df['Województwo'].isin(voivodeship_names)] #wybór tylko wierszy z wojewodztwami
+    pedestrian_values = df_pedestrian_filtered['Wartość']
+    pedestrian_values.index= df_pedestrian_filtered['Województwo']
+
+    return pedestrian_values
+
+
 def fire_alcohol(df_fire: pd.DataFrame, df_alcohol: pd.DataFrame, plot=False) -> float:
     fire_voivodeships_values = get_fire_events_number(df_fire)
     alcohol_voivodeships_values = get_alcohol_concessions_number(df_alcohol)
@@ -118,17 +131,9 @@ def alcohol_pedestrian(df_alcohol: pd.DataFrame, df_population: pd.DataFrame, df
     voivodeship_names = get_voivodeships_names(df_alcohol)
     alcohol_voivodeships_values = get_alcohol_concessions_number(df_alcohol)
     population, _ = get_population_data(df_population, voivodeship_names)
-
-    df_pedestrian.columns = df_pedestrian.columns.str.strip().str.rstrip(';')
-    df_pedestrian[['Województwo', 'Wartość']] = df_pedestrian[
-    'Wskaźnik: "Liczba wypadków drogowych z udziałem pieszych i rowerzystów na 100 tys. ludności"'
-    ].str.split(';', expand=True)
-    df_pedestrian['Województwo'] = (df_pedestrian['Województwo'].str.lower()).str.strip()
-    df_pedestrian_filtered = df_pedestrian[df_pedestrian['Województwo'].isin(voivodeship_names)] #wybór tylko wierszy z wojewodztwami
-    pedestrian_values = df_pedestrian_filtered['Wartość']
-    pedestrian_values.index= df_pedestrian_filtered['Województwo']
-
     alcohol_voivodeships_values = alcohol_voivodeships_values.reindex(population.index)
+
+    pedestrian_values = get_pedestrian_data(df_pedestrian, voivodeship_names)
     pedestrian_values = pedestrian_values.reindex(population.index)
 
     alcohol_ratio = (alcohol_voivodeships_values / population).astype(float)
