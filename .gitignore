@@ -6,3 +6,13 @@ data/.~lock.3.csv\#
 *.csv#
 *.xlsx#
 *.pyc
+fire_alcohol_data_analysis.egg-info/dependency_links.txt
+fire_alcohol_data_analysis.egg-info/PKG-INFO
+fire_alcohol_data_analysis.egg-info/requires.txt
+fire_alcohol_data_analysis.egg-info/entry_points.txt
+fire_alcohol_data_analysis.egg-info/SOURCES.txt
+fire_alcohol_data_analysis.egg-info/top_level.txt
+profile_output.prof
+profiling_report.txt
+.coverage
+/data
