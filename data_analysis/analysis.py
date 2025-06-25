@@ -138,7 +138,6 @@ def alcohol_pedestrian(df_alcohol: pd.DataFrame, df_population: pd.DataFrame, df
 
     alcohol_ratio = (alcohol_voivodeships_values / population).astype(float)
     pedestrian_values = pedestrian_values.str.replace(',', '.').astype(float)
-    
     r, _ = scipy.stats.pearsonr(alcohol_ratio, pedestrian_values)
 
     if plot:
@@ -149,4 +148,3 @@ def alcohol_pedestrian(df_alcohol: pd.DataFrame, df_population: pd.DataFrame, df
         plt.show()
 
     return r
-
