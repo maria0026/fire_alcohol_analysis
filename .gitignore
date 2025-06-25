@@ -16,3 +16,4 @@ profile_output.prof
 profiling_report.txt
 .coverage
 /data
+*.txt
